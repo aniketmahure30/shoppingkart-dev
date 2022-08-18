@@ -35,8 +35,8 @@ const Auth = () => {
   const navigate = useNavigate();
 
   // console.log(cartValue);
-  const isLoginOpen = useSelector(state => state.Login.isOpen);
-  const currentUser = useSelector(state => state.user.currentUser);
+  const isLoginOpen = useSelector((state) => state.Login.isOpen);
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -49,14 +49,14 @@ const Auth = () => {
   const handleChange = (e, prop) => {
     setValues({ ...values, [prop]: e.target.value });
   };
-  const handleClickShowPassword = e => {
+  const handleClickShowPassword = (e) => {
     setValues({ ...values, showPassword: !values.showPassword });
   };
-  const handleMouseDownPassword = event => {
+  const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
-  let cartCount = useSelector(state => state.cart.cartItems);
+  let cartCount = useSelector((state) => state.cart.cartItems);
 
   useEffect(() => {
     if (
@@ -68,7 +68,7 @@ const Auth = () => {
     }
   }, []);
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -91,11 +91,17 @@ const Auth = () => {
         dispatch(CloseLogin());
         setShowBackdrop(false);
         toast.success("successfully logged in");
-        navigate("/Home");
-        if (currentUser.role.includes("CUSTOMER")) {
+
+        // ! routing according to user ROLE
+        if (data.data.role[0] === "CUSTOMER") {
+          navigate("/Home");
           dispatch(getCart(data.data.userId));
           dispatch(getOrderHistory(data.data.userId));
+        } else if (data.data.role[0] === "MERCHANT") {
+          navigate("/");
         }
+
+        // ! routing according to user ROLE
       }
     } catch (err) {
       console.log(err);
@@ -112,7 +118,7 @@ const Auth = () => {
         <>
           <h3>Hello, {currentUser.firstName}</h3>
           <a
-            onClick={e => navigate("/cart")}
+            onClick={(e) => navigate("/cart")}
             className={styles.cartIcon}
             onMouseEnter={() => setCart(true)}
             onMouseLeave={() => setCart(false)}
@@ -189,7 +195,7 @@ const Auth = () => {
                 type="text"
                 value={values.email}
                 style={{ marginBottom: "2rem" }}
-                onChange={e => handleChange(e, "email")}
+                onChange={(e) => handleChange(e, "email")}
                 label="Email or phone"
               />
             </FormControl>
@@ -201,7 +207,7 @@ const Auth = () => {
                 id="outlined-adornment-password"
                 type={values.showPassword ? "text" : "password"}
                 value={values.password}
-                onChange={e => handleChange(e, "password")}
+                onChange={(e) => handleChange(e, "password")}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton

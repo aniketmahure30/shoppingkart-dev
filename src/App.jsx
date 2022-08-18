@@ -13,6 +13,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import CustomRoutes2 from "./routes/CustomRoutes2";
 import { fetchProducts } from "./features/products/productSlice";
+import MerchantRoutes from "./routes/MerchantRoutes";
+
 
 const App = () => {
   let currentUser = useSelector(state => state.user.currentUser);
@@ -29,13 +31,28 @@ const App = () => {
       <Router>
         <ToastContainer />
         <PersistentLogin>
-          <Navbar />
-
-          <CustomRoutes2 />
-
-          <CustomRoutes />
+        {(Object.keys(currentUser).length !== 0) ? (
+            <>
+              {currentUser.role?.includes("CUSTOMER") ? (
+                <>
+                  <Navbar />
+                  <CustomRoutes />
+                  <Footer />
+                </>
+              ) : (currentUser.role?.includes("MERCHANT")) ? (
+                  < MerchantRoutes/>
+              ) : (
+                <h1>Your are Role is Authorized</h1>
+              )}
+            </>
+          ) : (
+            <>
+              <Navbar />
+              <CustomRoutes2 />
+              <Footer />
+            </>
+          )}
         </PersistentLogin>
-        <Footer />
       </Router>
     </div>
   );
