@@ -26,6 +26,8 @@ import EditAddress from "../pages/profile/EditAddress";
 import PlaceOrder from "../pages/cart/ProductCheckout/PlaceOrder";
 import SubCategory from "../components/categories/sub-category/SubCategory";
 import SearchedProducts from "./../pages/searched-products/SearchedProducts";
+import PageNotFound from "../components/error/Error"
+
 const CustomRoutes = () => {
   let myRoutes = useRoutes([
     {
@@ -123,6 +125,10 @@ const CustomRoutes = () => {
       path: "/search-products/:searchKey",
       element: <SearchedProducts />,
     },
+    {
+      path:"*",
+      element:<PageNotFound/>
+    }
   ]);
   return myRoutes;
 };
