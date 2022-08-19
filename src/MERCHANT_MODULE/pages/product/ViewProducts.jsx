@@ -92,7 +92,7 @@ const ViewProducts = () => {
   let productData = useSelector((state) => state.product.productList);
   let [rows, setRows] = useState(productData);
 
-  console.log(rows);
+  // console.log(rows);
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -139,15 +139,14 @@ const ViewProducts = () => {
               ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.productId}>
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
-                        <>
                           <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number" ? (
+                            {(column.format && typeof value === "number") ? (
                               column.format(value)
-                            ) : column.id === "actions" ? (
+                            ) : (column.id === "actions") ? (
                               //BEGIN :: actions button
                               <>
                                 <Link to={`/product-info/${row.productId}`}>
@@ -169,7 +168,7 @@ const ViewProducts = () => {
                               </>
                             ) : //END :: actions button
 
-                            column.id === "thumbnailURL" ? (
+                            (column.id === "thumbnailURL") ? (
                               // BEGIN ::  Product Image Section
                               <img
                                 alt="productImage"
@@ -187,7 +186,6 @@ const ViewProducts = () => {
                               value
                             )}
                           </TableCell>
-                        </>
                       );
                     })}
                   </TableRow>

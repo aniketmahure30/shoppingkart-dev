@@ -25,7 +25,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { makeStyles } from "@material-ui/core/styles";
-import { Link, Outlet } from "react-router-dom";
+import { NavLink , Link, Outlet } from "react-router-dom";
 
 import Auth from "../../components/navbar/Auth"
 
@@ -202,7 +202,7 @@ export default function PersistentDrawerLeft() {
               <AccordionDetails sx={{ background: "#172337", color: "white" }}>
                 {item.sub.map((value, index) => (
                   <ListItem key={index} disablePadding>
-                    <Link
+                    <NavLink
                       to={`${value.path}`}
                       style={{
                         color: "inherit",
@@ -212,7 +212,7 @@ export default function PersistentDrawerLeft() {
                     >
                     <ListItemText primary={value.name} />
                       
-                    </Link>
+                    </NavLink>
                   </ListItem>
                 ))}
               </AccordionDetails>

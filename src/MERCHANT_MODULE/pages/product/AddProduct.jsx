@@ -19,7 +19,7 @@ import Select from "@mui/material/Select";
 import BackdropSpinner from "../../../components/spinner/BackdropSpinner"
 import { HighlightOffOutlined, AddCircleOutline } from "@mui/icons-material";
 import Axios from "../../../apis/Axios";
-import {firstNameRegex, alphaNeumericSpaceRegex , alphaSpaceRegex , numberDecimalRegex} from "../../../validation/Regex"
+import {firstNameRegex, alphaNeumericSpaceRegex , alphaSpaceRegex , numberDecimalRegex , aplNumSpaceSpecailCharRegex} from "../../../validation/Regex"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -177,13 +177,13 @@ const AddProduct = () => {
               onChange={(e) => {
                 setName(e.target.value);
               }}
-              error={name != "" && firstNameRegex.test(name) === false}
+              error={name != "" && aplNumSpaceSpecailCharRegex.test(name) === false}
               helperText={
-                name != "" && /^[a-zA-Z_. 0-9]+$/g.test(name) === false
+                name != "" && /^(?!\d+$)(?:[a-zA-Z0-9][a-zA-Z0-9 -@&$]*)?$/g.test(name) === false
                   ? "must be alphabets"
-                  : (name != "" && name.length < 3) || name.length > 20
-                  ? "char should be between 3-20"
-                  : name != "" && firstNameRegex.test(name) === false
+                  : (name != "" && name.length < 3) || name.length > 30
+                  ? "char should be between 3-30"
+                  : name != "" && aplNumSpaceSpecailCharRegex.test(name) === false
                   ? "invalid name"
                   : ""
               }
@@ -199,13 +199,13 @@ const AddProduct = () => {
               onChange={(e) => {
                 setBrand(e.target.value);
               }}
-              error={brand != "" && firstNameRegex.test(brand) === false}
+              error={brand != "" && alphaNeumericSpaceRegex.test(brand) === false}
               helperText={
-                brand != "" && /^[a-zA-Z_.]+$/g.test(brand) === false
+                brand != "" && /^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/g.test(brand) === false
                   ? "must be alphabets"
-                  : (brand != "" && brand.length < 3) || brand.length > 20
-                  ? "char should be between 3-20"
-                  : brand != "" && firstNameRegex.test(brand) === false
+                  : (brand != "" && brand.length < 3) || brand.length > 30
+                  ? "char should be between 3-30"
+                  : brand != "" && alphaNeumericSpaceRegex.test(brand) === false
                   ? "invalid name"
                   : ""
               }
@@ -356,7 +356,7 @@ const AddProduct = () => {
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
-          <div div className={Styles.block3}>
+          <div className={Styles.block3}>
             <div className={Styles.block3Child1}>
               {/*BEGIN ::  productImageURLS */}
               <div>

@@ -30,8 +30,8 @@ const RoundDeleteButton = ({onConfirm, title}) => {
   };
 
   return (
-    <Fragment onClick={e => e.stopPropagation()}>
-
+    // <Fragment onClick={e => e.stopPropagation()}>
+<>
       <IconButton
         onClick={handleClickOpen}
         size="small"
@@ -55,7 +55,8 @@ const RoundDeleteButton = ({onConfirm, title}) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </Fragment>
+      </>
+    // </Fragment>
   )
 }
 
